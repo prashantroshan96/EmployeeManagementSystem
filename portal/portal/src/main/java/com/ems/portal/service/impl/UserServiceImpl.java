@@ -28,14 +28,13 @@ public class UserServiceImpl implements UserService {
     public UserDto getUser(long id){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Employee Not Found With the given Id : " + id));
-        UserDto userDto = UserMapper.mapToUserDto(user);
-        return userDto;
+        return UserMapper.mapToUserDto(user);
     }
 
     @Override
     public List<UserDto> getAllUsers() {
         List<User> users = userRepository.findAll();
-        return users.stream().map((user) -> UserMapper.mapToUserDto(user))
+        return users.stream().map(UserMapper::mapToUserDto)
                 .collect(Collectors.toList());
     }
 
